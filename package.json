@@ -1,0 +1,24 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "An application using mySQL and Node to create an Amazon-like CLI interface.",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RJRowland93/Bamazon.git"
+  },
+  "author": "Randal Rowland",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RJRowland93/Bamazon/issues"
+  },
+  "homepage": "https://github.com/RJRowland93/Bamazon#readme",
+  "dependencies": {
+    "cli-table": "^0.3.1",
+    "inquirer": "^1.2.3",
+    "mysql": "^2.12.0"
+  }
+}
