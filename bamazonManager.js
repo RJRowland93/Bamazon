@@ -96,22 +96,33 @@ function printTable() {
            );
        }
        console.log(table.toString());
+       manageOrQuit();
    });
 }
 // show items with stock_quantity less than 5
 function printLow() {
-	connection.query("SELECT * from products WHERE stock_quantity HAVING count(*) < 6", function(err, res) {
+	var table = new Table({
+       head: ['Product ID', 'Product Name', 'Product Department', 'Price', 'Stock'],
+       colWidths: [10, 25, 15, 10, 10],
+       chars: { 'top': '═' , 'top-mid': '╤' , 'top-left': '╔' , 'top-right': '╗'
+       , 'bottom': '═' , 'bottom-mid': '╧' , 'bottom-left': '╚' , 'bottom-right': '╝'
+       , 'left': '║' , 'left-mid': '╟' , 'mid': '─' , 'mid-mid': '┼'
+       , 'right': '║' , 'right-mid': '╢' , 'middle': '│' }
+   });
+	connection.query("SELECT * from products GROUP BY item_id HAVING stock_quantity < 6", function(err, res) {
 		if (err) throw err;
-		console.log(res);
-		// for (var i = 0; i < res.length; i++) {
-		// 	console.log(res[i].product_name);
-		// }
-		// manageOrQuit();
+		for (var i = 0; i < res.length; i++) {
+			table.push(
+				[res[i].item_id, res[i].product_name, res[i].department_name, res[i].price, res[i].stock_quantity]
+				);
+		}
+		console.log(table.toString());
+		manageOrQuit();
 	});
 }
 
 function addInventory() {
-	printTable();
+	// printTable();
 	inquirer.prompt([{
 		name: "id",
 		type: "input",
@@ -184,4 +195,4 @@ function addProduct() {
 	});
 }
 
-printLow();
+welcome();
