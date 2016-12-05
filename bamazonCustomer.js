@@ -52,7 +52,7 @@ function quit() {
 //displays the bamazon database data 
 function printTable() {
        var table = new Table({
-       head: ['Product ID', 'Product Name', 'Product Category', 'Price', 'Stock'],
+       head: ['Product ID', 'Product Name', 'Product Department', 'Price', 'Stock'],
        colWidths: [10, 25, 15, 10, 10],
        chars: { 'top': '═' , 'top-mid': '╤' , 'top-left': '╔' , 'top-right': '╗'
        , 'bottom': '═' , 'bottom-mid': '╧' , 'bottom-left': '╚' , 'bottom-right': '╝'
@@ -101,8 +101,8 @@ function userBuy() {
         console.log("Sorry! I don't have enough " + res[0].product_name + "(s) right now. Try buying a few less.");
         buyOrQuit();
       } else {
-        console.log("Thank you for your purchase! You bought " + answer.quantity + " " + res[0].product_name + "(s) for a total of: $" + answer.quantity*res[0].price + ".");
-        connection.query("UPDATE products SET stock_quantity = ? WHERE ?", [res[0].stock_quantity-=answer.quantity, {item_id: answer.id}]);
+        console.log("Thank you for your purchase!\nYou bought " + answer.quantity + " " + res[0].product_name + "(s) for a total of: $" + answer.quantity*res[0].price);
+        connection.query("UPDATE products SET stock_quantity = ? WHERE ?", [res[0].stock_quantity-=parseInt(answer.quantity), {item_id: answer.id}]);
         buyOrQuit();
       }
     })
