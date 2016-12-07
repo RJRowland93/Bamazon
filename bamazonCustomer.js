@@ -103,9 +103,17 @@ function userBuy() {
       } else {
         console.log("Thank you for your purchase!\nYou bought " + answer.quantity + " " + res[0].product_name + "(s) for a total of: $" + answer.quantity*res[0].price);
         connection.query("UPDATE products SET stock_quantity = ? WHERE ?", [res[0].stock_quantity-=parseInt(answer.quantity), {item_id: answer.id}]);
-        buyOrQuit();
+        // connection.query("UPDATE departments SET total_sales += ? WHERE ?", [answer.quantity*res[0].price, {department_name: res[0].departments}], function(err, res) {
+        //     if (err) throw err;
+        //     console.log(res[0].total_sales);
+        // });
+        connection.query("SELECT * FROM departments WHERE ?", {department_name: res[0].department_name}, function(err, res) {
+          if (err) throw err;
+          console.log(res[0].total_sales);
+        });
+        buyOrQuit(); 
       }
-    })
+    });
   });
 }
 

@@ -160,7 +160,8 @@ function addProduct() {
 		message: "Enter the name of the product"
 	}, {
 		name: "department",
-		type: "input",
+		type: "list",
+		choices: ["General", "Food", "Clothing", "Education", "Animals", "Electronics"],
 		message: "Enter the name of the department"
 	}, {
 		name: "price",
